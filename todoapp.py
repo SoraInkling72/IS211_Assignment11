@@ -22,12 +22,14 @@ def to_do_list():
 
 @app.route('/submit.html', methods = ['POST'])
 def validation():
-    validate_email = re.search('^["@yahoo.com" , "@gmail.com , @aol.com , @outlook.com]')
-    validate_priority_level = re.search('[Low , Medium , High]')
-    if validate_email == re.search('^["@yahoo.com" , "@gmail.com , @aol.com , @outlook.com]'):
+    validate_email = re.findall(r'[\w.+-]+@[\w-]+\.[\w.-]+')
+    validate_priority_level = re.findall('[Low , Medium , High]')
+    if re.match(validate_email):
         return True
-    if validate_priority_level == re.search('[Low , Medium , High]'):
+        print(f"Valid email")
+    if re.match(validate_priority_level):
         return True
+        print(f"Valid choice")
     else:
         return False
         print(f"Please check your information and try again")
