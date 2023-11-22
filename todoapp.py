@@ -31,7 +31,7 @@ def validation():
         return True
         print(f"Valid choice")
     else:
-        return False
+        return redirect('/')
         print(f"Please check your information and try again")
 
 if __name__ == '__main__':
