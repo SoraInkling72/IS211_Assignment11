@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 to_do_list = []
 
-@app.route('/signup', methods = ['POST'])
+@app.route('/add_task', methods = ['POST'])
 def new_task():
     task = request.form['task']
     email = request.form['email']
