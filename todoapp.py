@@ -1,5 +1,7 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, flash
+from typing import NoReturn
 import re
+
 
 app = Flask(__name__)
 
@@ -20,19 +22,25 @@ def new_task():
 def to_do_list():
     return render_template('to_do_list.html', to_do_list=to_do_list)
 
-@app.route('/submit.html', methods = ['POST'])
+@app.route('/submit.html', methods = ['GET', 'POST'])
 def validation():
     validate_email = re.findall(r'[\w.+-]+@[\w-]+\.[\w.-]+')
     validate_priority_level = re.findall('[Low , Medium , High]')
     if re.match(validate_email):
         return True
-        print(f"Valid email")
+        flash(f"Valid email")
     if re.match(validate_priority_level):
         return True
-        print(f"Valid choice")
+        flash(f"Valid choice")
     else:
         return redirect('/')
-        print(f"Please check your information and try again")
+        flash(f"Please check your information and try again")
+    return render_template('submit.html')
+
+@app.route('/clear.html', methods = ['GET', 'POST'])
+def clear():
+    del to_do_list
+    return redirect('/to_do_list.html')
 
 if __name__ == '__main__':
     app.run()

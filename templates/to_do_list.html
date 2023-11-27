@@ -16,8 +16,8 @@
         <tbody>
             <input type="checkbox" name="Completed">
             <tr>
-                {% for task in to_do_list %}
-                <th scope="row">{{ task }}</th>
+                <ul>{% for task in to_do_list %}
+                <li><th scope="row">{{ task }}</th>
                 {% endfor %}
 
                 {% for email in to_do_list %}
@@ -26,7 +26,8 @@
 
                 {% for priority in to_do_list %}
                 <th scope="row">{{ priority }}</th>
-                {% endfor %}
+                {% endfor %}</li>
+                </ul>
             </tr>
         </tbody>
     </table>
@@ -42,6 +43,20 @@
             </select>
             <br>
             <input type="submit" value="Add Info">
+        <br>
         </form>
+        {% from "submit.html" import render_field %}
+        <form method=post>
+            <dl>
+                {{ render_field(form.username) }}
+                {{ render_field(form.email) }}
+                {{ render_field(form.password) }}
+                {{ render_field(form.confirm) }}
+                {{ render_field(form.accept_tos) }}
+            </dl>
+            <p><input type=submit value=Register>
+        <br>
+
+</form>
 </body>
 </html>
